@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CalcButton extends StatelessWidget {
-  CalcButton({Key? key, required this.title, this.onPressed}): super(key: key);
+  CalcButton({Key? key, required String title, required VoidCallback? onPressed}):
+        _title = title,
+        _onPressed = onPressed,
+        super(key: key);
 
-  final String title;
-  final VoidCallback? onPressed;
+  final String _title;
+  final VoidCallback? _onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +16,10 @@ class CalcButton extends StatelessWidget {
           padding: EdgeInsets.all(2),
           child: ElevatedButton(
             child: Text(
-              this.title,
+              this._title,
               style: Theme.of(context).textTheme.headline4,
             ),
-            onPressed: this.onPressed,
+            onPressed: this._onPressed,
           ),
         )
     );

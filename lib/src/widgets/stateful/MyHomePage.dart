@@ -1,4 +1,8 @@
+import 'package:calculator/src/abstracts/CalcDisplayIOHandleable.dart';
+import 'package:calculator/src/models/displayHandlers/CalcDisplayIOHandler.dart';
+import 'package:calculator/src/widgets/stateful/CalcDisplay.dart';
 import 'package:calculator/src/widgets/stateless/CalcButton.dart';
+import 'package:calculator/src/widgets/stateless/CalcNumberButton.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -7,6 +11,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  late CalcDisplay _display = CalcDisplay();
+  late CalcDisplayIOHandleable _ioHandler = CalcDisplayIOHandler(display: this._display);
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Expanded(
                   flex: 1,
-                    child: Container(
-                      color: Colors.orangeAccent,
-                    ),
+                    child: this._display,
                 ),
                 Expanded(
                   flex: 4,
@@ -30,17 +35,17 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                CalcButton(
-                                    title: '7',
-                                  onPressed: _onTapButton,
+                                CalcNumberButton(
+                                    number: 7,
+                                    ioHandler: this._ioHandler,
                                 ),
-                                CalcButton(
-                                  title: '8',
-                                  onPressed: _onTapButton,
+                                CalcNumberButton(
+                                  number: 8,
+                                  ioHandler: this._ioHandler,
                                 ),
-                                CalcButton(
-                                  title: '9',
-                                  onPressed: _onTapButton,
+                                CalcNumberButton(
+                                  number: 9,
+                                  ioHandler: this._ioHandler,
                                 ),
                                 CalcButton(
                                   title: '/',
@@ -53,17 +58,17 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              CalcButton(
-                                title: '4',
-                                onPressed: _onTapButton,
+                              CalcNumberButton(
+                                number: 4,
+                                ioHandler: this._ioHandler,
                               ),
-                              CalcButton(
-                                title: '5',
-                                onPressed: _onTapButton,
+                              CalcNumberButton(
+                                number: 5,
+                                ioHandler: this._ioHandler,
                               ),
-                              CalcButton(
-                                title: '6',
-                                onPressed: _onTapButton,
+                              CalcNumberButton(
+                                number: 6,
+                                ioHandler: this._ioHandler,
                               ),
                               CalcButton(
                                 title: '×',
@@ -76,17 +81,17 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              CalcButton(
-                                title: '1',
-                                onPressed: _onTapButton,
+                              CalcNumberButton(
+                                number: 1,
+                                ioHandler: this._ioHandler,
                               ),
-                              CalcButton(
-                                title: '2',
-                                onPressed: _onTapButton,
+                              CalcNumberButton(
+                                number: 2,
+                                ioHandler: this._ioHandler,
                               ),
-                              CalcButton(
-                                title: '3',
-                                onPressed: _onTapButton,
+                              CalcNumberButton(
+                                number: 3,
+                                ioHandler: this._ioHandler,
                               ),
                               CalcButton(
                                 title: '-',
@@ -103,9 +108,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                 title: '.',
                                 onPressed: _onTapButton,
                               ),
-                              CalcButton(
-                                title: '0',
-                                onPressed: _onTapButton,
+                              CalcNumberButton(
+                                number: 0,
+                                ioHandler: this._ioHandler,
                               ),
                               CalcButton(
                                 title: '=',
