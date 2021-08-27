@@ -1,10 +1,11 @@
 import 'package:calculator/src/models/enums/InputType.dart';
+import 'package:calculator/src/models/enums/OperationType.dart';
 
 abstract class CalcDisplayIOHandleable {
   InputType currentInputType = InputType.firstNumber;
 
-  didTapNumber(int number);
-  didTapOperator();
+  didTapNumber({required int number});
+  didTapOperator({required OperationType operator});
   didTapDot();
   didTapEqualTo();
 }

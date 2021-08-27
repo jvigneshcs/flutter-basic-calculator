@@ -1,8 +1,10 @@
 import 'package:calculator/src/abstracts/CalcDisplayIOHandleable.dart';
 import 'package:calculator/src/models/displayHandlers/CalcDisplayIOHandler.dart';
+import 'package:calculator/src/models/enums/OperationType.dart';
 import 'package:calculator/src/widgets/stateful/CalcDisplay.dart';
 import 'package:calculator/src/widgets/stateless/CalcButton.dart';
 import 'package:calculator/src/widgets/stateless/CalcNumberButton.dart';
+import 'package:calculator/src/widgets/stateless/CalcOperatorButton.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -47,9 +49,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                   number: 9,
                                   ioHandler: this._ioHandler,
                                 ),
-                                CalcButton(
-                                  title: '/',
-                                  onPressed: _onTapButton,
+                                CalcOperatorButton(
+                                    operator: OperationType.division,
+                                    ioHandler: this._ioHandler
                                 ),
                               ],
                             ),
@@ -70,9 +72,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                 number: 6,
                                 ioHandler: this._ioHandler,
                               ),
-                              CalcButton(
-                                title: '×',
-                                onPressed: _onTapButton,
+                              CalcOperatorButton(
+                                  operator: OperationType.multiplication,
+                                  ioHandler: this._ioHandler
                               ),
                             ],
                           ),
@@ -93,9 +95,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                 number: 3,
                                 ioHandler: this._ioHandler,
                               ),
-                              CalcButton(
-                                title: '-',
-                                onPressed: _onTapButton,
+                              CalcOperatorButton(
+                                  operator: OperationType.subtraction,
+                                  ioHandler: this._ioHandler
                               ),
                             ],
                           ),
@@ -106,7 +108,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             children: [
                               CalcButton(
                                 title: '.',
-                                onPressed: _onTapButton,
+                                onPressed: () {
+                                  this._ioHandler.didTapDot();
+                                },
                               ),
                               CalcNumberButton(
                                 number: 0,
@@ -114,11 +118,13 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                               CalcButton(
                                 title: '=',
-                                onPressed: _onTapButton,
+                                onPressed: () {
+                                  this._ioHandler.didTapEqualTo();
+                                },
                               ),
-                              CalcButton(
-                                title: '+',
-                                onPressed: _onTapButton,
+                              CalcOperatorButton(
+                                  operator: OperationType.addition,
+                                  ioHandler: this._ioHandler
                               ),
                             ],
                           ),
@@ -131,9 +137,5 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
-  }
-
-  _onTapButton() {
-
   }
 }

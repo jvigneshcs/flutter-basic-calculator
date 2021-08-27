@@ -5,6 +5,6 @@ import 'package:flutter/material.dart';
 class CalcNumberButton extends CalcButton {
   CalcNumberButton({Key? key, required int number, required CalcDisplayIOHandleable ioHandler}) :
         super(key: key, title: number.toString(), onPressed: () {
-          ioHandler.didTapNumber(number);
+          ioHandler.didTapNumber(number: number);
         });
 }

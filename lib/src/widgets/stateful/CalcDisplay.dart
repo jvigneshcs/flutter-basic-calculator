@@ -30,7 +30,7 @@ class _CalcDisplayState extends State<CalcDisplay>
     return Padding(
         padding: EdgeInsets.all(8),
         child: Align(
-          alignment: Alignment.centerRight,
+          alignment: Alignment.bottomRight,
           child: Text(
             this.title,
             textAlign: TextAlign.right,
