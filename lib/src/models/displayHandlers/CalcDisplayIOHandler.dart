@@ -22,7 +22,6 @@ class CalcDisplayIOHandler implements CalcDisplayIOHandleable {
 
   @override
   setCalcDisplayable(CalcDisplayable displayable) {
-    displayable.setText(this._calcDisplay.getText());
     this._calcDisplay = displayable;
   }
 
