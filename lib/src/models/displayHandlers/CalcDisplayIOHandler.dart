@@ -21,7 +21,41 @@ class CalcDisplayIOHandler implements CalcDisplayIOHandleable {
   bool _canEditFirstNumber = true;
 
   @override
+  setCalcDisplayable(CalcDisplayable displayable) {
+    displayable.setText(this._calcDisplay.getText());
+    this._calcDisplay = displayable;
+  }
+
+  @override
   didTapClear() {
+    switch (this.currentInputType) {
+      case InputType.firstNumber:
+        if (this._canEditFirstNumber) {
+          continue secondNumber;
+        } else {
+          break;
+        }
+        secondNumber:
+      case InputType.secondNumber:
+        String text = this._calcDisplay.getText();
+        if (text.length > 1) {
+          text = text.substring(0, text.length - 1);
+          this._calcDisplay.setText(text);
+        } else {
+          this._calcDisplay.setText('0');
+        }
+        break;
+      case InputType.operator:
+        double number = this._firstNumber ?? 0;
+        this._displayNumber(number);
+        break;
+      case InputType.result:
+        break;
+    }
+  }
+
+  @override
+  didTapClearAll() {
     switch (this.currentInputType) {
       firstNumber:
       case InputType.firstNumber:
@@ -221,13 +255,17 @@ class CalcDisplayIOHandler implements CalcDisplayIOHandleable {
         result = this._firstNumber! / 100;
         break;
     }
-    NumberFormat formatter = NumberFormat();
-    formatter.minimumFractionDigits = 0;
-    log('Max fraction digits - ${formatter.maximumFractionDigits}');
 
     this._firstNumber = result;
     this._canEditFirstNumber = false;
     this.currentInputType = InputType.result;
-    this._calcDisplay.setText(formatter.format(result));
+    this._displayNumber(result);
+  }
+
+  _displayNumber(double number) {
+    NumberFormat formatter = NumberFormat();
+    formatter.minimumFractionDigits = 0;
+    log('Max fraction digits - ${formatter.maximumFractionDigits}');
+    this._calcDisplay.setText(formatter.format(number));
   }
 }
