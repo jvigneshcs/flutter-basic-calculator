@@ -3,6 +3,7 @@ enum OperationType {
   subtraction,
   multiplication,
   division,
+  percentage,
 }
 
 extension OperationTypeExtension on OperationType {
@@ -17,6 +18,8 @@ extension OperationTypeExtension on OperationType {
         return '×';
       case OperationType.division:
         return '/';
+      case OperationType.percentage:
+        return '%';
     }
   }
 }

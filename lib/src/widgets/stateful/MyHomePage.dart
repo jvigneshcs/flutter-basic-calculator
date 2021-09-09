@@ -34,6 +34,30 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       children: [
                         Expanded(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              CalcButton(
+                                    title: 'C',
+                                    onPressed: () {
+                                      this._ioHandler.didTapClear();
+                                    },
+                                flex: 2,
+                              ),
+                              CalcButton(
+                                    title: '+/-',
+                                    onPressed: () {
+                                      this._ioHandler.didTapSwitchSign();
+                                    },
+                              ),
+                              CalcOperatorButton(
+                                    operator: OperationType.percentage,
+                                    ioHandler: this._ioHandler,
+                                  ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [

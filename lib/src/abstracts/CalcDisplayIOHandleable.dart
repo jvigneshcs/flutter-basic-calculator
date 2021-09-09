@@ -7,5 +7,7 @@ abstract class CalcDisplayIOHandleable {
   didTapNumber({required int number});
   didTapOperator({required OperationType operator});
   didTapDot();
+  didTapSwitchSign();
+  didTapClear();
   didTapEqualTo();
 }

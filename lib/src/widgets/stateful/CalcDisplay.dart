@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:calculator/src/abstracts/CalcDisplayable.dart';
 import 'package:flutter/material.dart';
 
@@ -31,10 +32,11 @@ class _CalcDisplayState extends State<CalcDisplay>
         padding: EdgeInsets.all(8),
         child: Align(
           alignment: Alignment.bottomRight,
-          child: Text(
+          child: AutoSizeText(
             this.title,
             textAlign: TextAlign.right,
-            style: Theme.of(context).textTheme.headline2,
+            style: Theme.of(context).textTheme.headline1,
+            maxLines: 2,
           ),
         ),
       );

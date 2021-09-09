@@ -21,6 +21,23 @@ class CalcDisplayIOHandler implements CalcDisplayIOHandleable {
   bool _canEditFirstNumber = true;
 
   @override
+  didTapClear() {
+    switch (this.currentInputType) {
+      firstNumber:
+      case InputType.firstNumber:
+        this._firstNumber = null;
+        this._calcDisplay.setText('0');
+        break;
+      case InputType.secondNumber:
+      case InputType.result:
+      case InputType.operator:
+        this.currentInputType = InputType.firstNumber;
+        this._secondNumber = null;
+        continue firstNumber;
+    }
+  }
+
+  @override
   didTapNumber({required int number}) {
     switch (this.currentInputType) {
       case InputType.firstNumber:
@@ -58,24 +75,11 @@ class CalcDisplayIOHandler implements CalcDisplayIOHandleable {
 
   @override
   didTapOperator({required OperationType operator}) {
-    switch (this.currentInputType) {
-      case InputType.firstNumber:
-        String text = this._calcDisplay.getText();
-        this._firstNumber = double.tryParse(text);
-        this._calcDisplay.setText(operator.symbol);
-        break;
-      case InputType.secondNumber:
-        String text = this._calcDisplay.getText();
-        this._secondNumber = double.tryParse(text);
-        this._performOperation(operation: operator);
-        break;
-      case InputType.result:
-      case InputType.operator:
-        this._calcDisplay.setText(operator.symbol);
-        break;
+    if (operator == OperationType.percentage) {
+      this._handlePercentageOperation();
+    } else {
+      this._handleOtherOperator(operator: operator);
     }
-    this.currentInputType = InputType.operator;
-    this._operationType = operator;
   }
 
   @override
@@ -106,12 +110,33 @@ class CalcDisplayIOHandler implements CalcDisplayIOHandleable {
   }
 
   @override
+  didTapSwitchSign() {
+    switch (this.currentInputType) {
+      firstNumber:
+      case InputType.firstNumber:
+      case InputType.secondNumber:
+        String text = this._calcDisplay.getText();
+        if (text.startsWith('-')) {
+          text = text.replaceFirst('-', '');
+          this._calcDisplay.setText(text);
+        } else {
+          this._calcDisplay.setText('-' + text);
+        }
+        break;
+      case InputType.result:
+        this._firstNumber = this._firstNumber! * -1;
+        continue firstNumber;
+      case InputType.operator:
+        break;
+    }
+  }
+
+  @override
   didTapEqualTo() {
     switch (this.currentInputType) {
       case InputType.firstNumber:
         if (this._operationType != null) {
-          String text = this._calcDisplay.getText();
-          double? input = double.tryParse(text);
+          double? input = this._getInputNumber();
           this._firstNumber = input;
           this._secondNumber = input;
           this._performOperation(operation: this._operationType!);
@@ -119,8 +144,7 @@ class CalcDisplayIOHandler implements CalcDisplayIOHandleable {
         break;
       case InputType.secondNumber:
         if (this._operationType != null) {
-          String text = this._calcDisplay.getText();
-          this._secondNumber = double.tryParse(text);
+          this._secondNumber = this._getInputNumber();
           this._performOperation(operation: this._operationType!);
         }
         break;
@@ -133,8 +157,49 @@ class CalcDisplayIOHandler implements CalcDisplayIOHandleable {
     }
   }
 
+  double? _getInputNumber() {
+    String text = this._calcDisplay.getText();
+    return double.tryParse(text);
+  }
+
+  _handlePercentageOperation() {
+    switch (this.currentInputType) {
+      case InputType.firstNumber:
+        this._firstNumber = this._getInputNumber();
+        continue performOperation;
+      case InputType.secondNumber:
+        this.didTapEqualTo();
+        continue performOperation;
+        performOperation:
+      case InputType.result:
+      case InputType.operator:
+        this._performOperation(operation: OperationType.percentage);
+        break;
+    }
+  }
+
+  _handleOtherOperator({required OperationType operator}) {
+    switch (this.currentInputType) {
+      case InputType.firstNumber:
+        this._firstNumber = this._getInputNumber();
+        this._calcDisplay.setText(operator.symbol);
+        break;
+      case InputType.secondNumber:
+        this._secondNumber = this._getInputNumber();
+        this._performOperation(operation: operator);
+        break;
+      case InputType.result:
+      case InputType.operator:
+        this._calcDisplay.setText(operator.symbol);
+        break;
+    }
+    this.currentInputType = InputType.operator;
+    this._operationType = operator;
+  }
+
   _performOperation({required OperationType operation}) {
-    if (this._firstNumber == null || this._secondNumber == null) {
+    if (this._firstNumber == null ||
+        (operation != OperationType.percentage && this._secondNumber == null)) {
       return;
     }
 
@@ -151,6 +216,9 @@ class CalcDisplayIOHandler implements CalcDisplayIOHandleable {
         break;
       case OperationType.division:
         result = this._firstNumber! / this._secondNumber!;
+        break;
+      case OperationType.percentage:
+        result = this._firstNumber! / 100;
         break;
     }
     NumberFormat formatter = NumberFormat();
