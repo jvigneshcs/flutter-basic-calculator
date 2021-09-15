@@ -7,12 +7,16 @@ import 'package:calculator/src/models/enums/OperationType.dart';
 import 'package:intl/intl.dart';
 
 class CalcDisplayIOHandler implements CalcDisplayIOHandleable {
-
-  CalcDisplayIOHandler({required CalcDisplayable display}) :
-        this._calcDisplay = display;
+  CalcDisplayIOHandler({required CalcDisplayable display})
+      : this._calcDisplay = display;
 
   @override
   InputType currentInputType = InputType.firstNumber;
+
+  final _firstNumberOperators = [
+    OperationType.percentage,
+    OperationType.square,
+  ];
 
   CalcDisplayable _calcDisplay;
   double? _firstNumber;
@@ -34,7 +38,7 @@ class CalcDisplayIOHandler implements CalcDisplayIOHandleable {
         } else {
           break;
         }
-        secondNumber:
+      secondNumber:
       case InputType.secondNumber:
         String text = this._calcDisplay.getText();
         if (text.length > 1) {
@@ -83,7 +87,7 @@ class CalcDisplayIOHandler implements CalcDisplayIOHandleable {
         } else {
           continue secondNumber;
         }
-        secondNumber:
+      secondNumber:
       case InputType.secondNumber:
         String text = this._calcDisplay.getText();
         if (text == '0') {
@@ -108,8 +112,8 @@ class CalcDisplayIOHandler implements CalcDisplayIOHandleable {
 
   @override
   didTapOperator({required OperationType operator}) {
-    if (operator == OperationType.percentage) {
-      this._handlePercentageOperation();
+    if (this._firstNumberOperators.contains(operator)) {
+      this._handleFirstNumberOperation(operator: operator);
     } else {
       this._handleOtherOperator(operator: operator);
     }
@@ -195,7 +199,7 @@ class CalcDisplayIOHandler implements CalcDisplayIOHandleable {
     return double.tryParse(text);
   }
 
-  _handlePercentageOperation() {
+  _handleFirstNumberOperation({required OperationType operator}) {
     switch (this.currentInputType) {
       case InputType.firstNumber:
         this._firstNumber = this._getInputNumber();
@@ -203,12 +207,13 @@ class CalcDisplayIOHandler implements CalcDisplayIOHandleable {
       case InputType.secondNumber:
         this.didTapEqualTo();
         continue performOperation;
-        performOperation:
+      performOperation:
       case InputType.result:
       case InputType.operator:
-        this._performOperation(operation: OperationType.percentage);
+        this._performOperation(operation: operator);
         break;
     }
+    this._operationType = null;
   }
 
   _handleOtherOperator({required OperationType operator}) {
@@ -232,7 +237,7 @@ class CalcDisplayIOHandler implements CalcDisplayIOHandleable {
 
   _performOperation({required OperationType operation}) {
     if (this._firstNumber == null ||
-        (operation != OperationType.percentage && this._secondNumber == null)) {
+        (!this._firstNumberOperators.contains(operation) && this._secondNumber == null)) {
       return;
     }
 
@@ -253,6 +258,8 @@ class CalcDisplayIOHandler implements CalcDisplayIOHandleable {
       case OperationType.percentage:
         result = this._firstNumber! / 100;
         break;
+      case OperationType.square:
+        result = this._firstNumber! * this._firstNumber!;
     }
 
     this._firstNumber = result;
@@ -264,7 +271,8 @@ class CalcDisplayIOHandler implements CalcDisplayIOHandleable {
   _displayNumber(double number) {
     NumberFormat formatter = NumberFormat();
     formatter.minimumFractionDigits = 0;
-    log('Max fraction digits - ${formatter.maximumFractionDigits}');
+    formatter.maximumFractionDigits = 10;
+    formatter.turnOffGrouping();
     this._calcDisplay.setText(formatter.format(number));
   }
 }

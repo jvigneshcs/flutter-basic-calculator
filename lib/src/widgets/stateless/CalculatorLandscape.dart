@@ -39,7 +39,10 @@ class CalculatorLandscape extends StatelessWidget {
                       onPressed: () {
                         this._ioHandler.didTapClearAll();
                       },
-                      flex: 2,
+                    ),
+                    CalcOperatorButton(
+                      operator: OperationType.square,
+                      ioHandler: this._ioHandler,
                     ),
                     CalcButton(
                       title: '+/-',
