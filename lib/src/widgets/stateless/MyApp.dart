@@ -8,8 +8,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Calculator',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        brightness: Brightness.light,
+        primarySwatch: Colors.lightBlue,
       ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.teal,
+      ),
+      themeMode: ThemeMode.system,
       home: MyHomePage(),
     );
   }

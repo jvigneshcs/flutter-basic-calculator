@@ -18,7 +18,7 @@ extension OperationTypeExtension on OperationType {
       case OperationType.multiplication:
         return '×';
       case OperationType.division:
-        return '/';
+        return '÷';
       case OperationType.percentage:
         return '%';
       case OperationType.square:

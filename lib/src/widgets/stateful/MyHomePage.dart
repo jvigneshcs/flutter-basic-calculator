@@ -18,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return SizedBox.expand(
       child: Container(
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
         child: SafeArea(
           child: OrientationBuilder(
             builder: (context, orientation) {

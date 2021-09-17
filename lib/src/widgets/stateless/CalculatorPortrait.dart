@@ -40,15 +40,15 @@ class CalculatorPortrait extends StatelessWidget {
                         this._ioHandler.didTapClearAll();
                       },
                     ),
-                    CalcOperatorButton(
-                      operator: OperationType.square,
-                      ioHandler: this._ioHandler,
-                    ),
                     CalcButton(
                       title: '+/-',
                       onPressed: () {
                         this._ioHandler.didTapSwitchSign();
                       },
+                    ),
+                    CalcOperatorButton(
+                      operator: OperationType.square,
+                      ioHandler: this._ioHandler,
                     ),
                     CalcOperatorButton(
                       operator: OperationType.percentage,
