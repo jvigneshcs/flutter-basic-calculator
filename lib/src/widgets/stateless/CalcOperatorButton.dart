@@ -4,8 +4,17 @@ import 'package:calculator/src/widgets/stateless/CalcButton.dart';
 import 'package:flutter/material.dart';
 
 class CalcOperatorButton extends CalcButton {
-  CalcOperatorButton({Key? key, required OperationType operator, required CalcDisplayIOHandleable ioHandler}) :
-        super(key: key, title: operator.symbol, onPressed: () {
-          ioHandler.didTapOperator(operator: operator);
-        });
+  CalcOperatorButton({
+    Key? key,
+    required OperationType operator,
+    required CalcDisplayIOHandleable ioHandler,
+    ButtonStyle? style,
+  }) : super(
+          key: key,
+          title: operator.symbol,
+          onPressed: () {
+            ioHandler.didTapOperator(operator: operator);
+          },
+          style: style,
+        );
 }

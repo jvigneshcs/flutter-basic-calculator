@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:calculator/src/abstracts/CalcDisplayIOHandleable.dart';
 import 'package:calculator/src/abstracts/CalcDisplayable.dart';
 import 'package:calculator/src/models/enums/InputType.dart';

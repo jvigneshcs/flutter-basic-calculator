@@ -1,13 +1,16 @@
 import 'package:calculator/src/abstracts/CalcDisplayIOHandleable.dart';
 import 'package:calculator/src/models/displayHandlers/CalcDisplayIOHandler.dart';
+import 'package:calculator/src/models/sub_classes/MyThemeData.dart';
 import 'package:calculator/src/widgets/stateful/CalcDisplay.dart';
 import 'package:calculator/src/widgets/stateless/CalculatorLandscape.dart';
 import 'package:calculator/src/widgets/stateless/CalculatorPortrait.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
+  MyHomePage({required MyThemeData themeData}) : this._themeData = themeData;
   @override
   _MyHomePageState createState() => _MyHomePageState();
+  final MyThemeData _themeData;
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -25,14 +28,18 @@ class _MyHomePageState extends State<MyHomePage> {
               this._handleIOHandler();
               if (orientation == Orientation.portrait) {
                 return CalculatorPortrait(
-                    displayContainer:
-                        this._displayContainer(this._currentDisplay!),
-                    ioHandler: this._ioHandler!);
+                  displayContainer:
+                      this._displayContainer(this._currentDisplay!),
+                  ioHandler: this._ioHandler!,
+                  themeData: this.widget._themeData,
+                );
               } else {
                 return CalculatorLandscape(
-                    displayContainer:
-                        this._displayContainer(this._currentDisplay!),
-                    ioHandler: this._ioHandler!);
+                  displayContainer:
+                      this._displayContainer(this._currentDisplay!),
+                  ioHandler: this._ioHandler!,
+                  themeData: this.widget._themeData,
+                );
               }
             },
           ),
