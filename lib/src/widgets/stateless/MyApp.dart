@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       primaryContrastColorLight: Colors.indigoAccent,
       primaryContrastColorDark: Colors.redAccent,
       secondaryColorLight: Colors.blue,
-      secondaryColorDark: Colors.tealAccent,
+      secondaryColorDark: Colors.teal[900]!,
     );
     return MaterialApp(
       title: 'Calculator',
