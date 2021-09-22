@@ -1,16 +1,15 @@
-# calculator
+# Basic Calculator
 
-Basic calculator application.
+Basic calculator application in Flutter.
 
-## Getting Started
+## Screenshots
 
-This project is a starting point for a Flutter application.
+### Light Mode
 
-A few resources to get you started if this is your first Flutter project:
+![Portrait-LightMode](/Screenshots/Simulator Screen Shot - iPhone 12 - 2021-09-22 at 11.19.22.png)
+![Landscape-LightMode](/Screenshots/Simulator Screen Shot - iPhone 12 - 2021-09-22 at 11.19.28.png)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### Dark Mode
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Portrait-DarkMode](/Screenshots/Simulator Screen Shot - iPhone 12 - 2021-09-22 at 11.19.47.png)
+![Landscape-DarkMode](/Screenshots/Simulator Screen Shot - iPhone 12 - 2021-09-22 at 11.19.50.png)
