@@ -51,10 +51,11 @@ class _MyHomePageState extends State<MyHomePage> {
   GestureDetector _displayContainer(CalcDisplay display) {
     return GestureDetector(
       onHorizontalDragEnd: (DragEndDetails details) {
-        if (details.primaryVelocity! < 0) {
+        if (details.primaryVelocity! > 0) {
           this._ioHandler?.didTapClear();
         }
       },
+      behavior: HitTestBehavior.translucent,
       child: display,
     );
   }
