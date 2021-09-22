@@ -6,10 +6,10 @@ Basic calculator application in Flutter.
 
 ### Light Mode
 
-![Portrait-LightMode](/Screenshots/Simulator Screen Shot - iPhone 12 - 2021-09-22 at 11.19.22.png)
-![Landscape-LightMode](/Screenshots/Simulator Screen Shot - iPhone 12 - 2021-09-22 at 11.19.28.png)
+![Portrait-LightMode](/Screenshots/iPhone12PortraitLight.png)
+![Landscape-LightMode](/Screenshots/iPhone12LandscapeLight.png)
 
 ### Dark Mode
 
-![Portrait-DarkMode](/Screenshots/Simulator Screen Shot - iPhone 12 - 2021-09-22 at 11.19.47.png)
-![Landscape-DarkMode](/Screenshots/Simulator Screen Shot - iPhone 12 - 2021-09-22 at 11.19.50.png)
+![Portrait-DarkMode](/Screenshots/iPhone12PortraitDark.png)
+![Landscape-DarkMode](/Screenshots/iPhone12LandscapeDark.png)
